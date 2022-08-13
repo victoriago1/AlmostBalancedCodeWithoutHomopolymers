@@ -12,7 +12,7 @@ def _create_D1():
 
     for (i,j), val in np.ndenumerate(D1):
         if (i==j):
-            D1[i,j] = PowerSeries(1, 1, False)
+            D1[i,j] = PowerSeries(1, 1)
         
         elif (i<=1):
             D1[i,j] = PowerSeries()
