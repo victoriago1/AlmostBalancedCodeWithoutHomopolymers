@@ -3,7 +3,7 @@
 This folder contains everything needed to compute the number of strands that follow the requirements as defined in
 `strand_requirements.py` (More details on this file are bellow).
 
-Must of the files are relevant to the computation of the function N_4 as it is defined in the article:\n
+Must of the files are relevant to the computation of the function N_4 as it is defined in the article:
 "Properties and Constructions of Constrained Codes for DNA-Based Data Storage"[^1].
 The function N_4, defined in this article, calculates the number of strand of length n and weight w using recursive 
 functions and power series.
