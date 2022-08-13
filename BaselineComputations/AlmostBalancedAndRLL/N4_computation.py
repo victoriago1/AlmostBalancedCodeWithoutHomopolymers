@@ -48,7 +48,7 @@ if __name__ == "__main__":
     num_of_strands = [0]
     for n in range(1, strand_requirements.MAX_n + 1):
         num_of_strands.append(0)
-        min_w, max_w = strand_requirements.min_man_w(n)
+        min_w, max_w = strand_requirements.min_max_weight(n)
         for w in range(min_w, max_w+1):
             num_of_strands[n]+=(1/3)*N4.data[n,w]
 
