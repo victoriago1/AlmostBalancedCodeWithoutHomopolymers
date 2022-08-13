@@ -1,7 +1,11 @@
 from math import ceil, floor
+from tqdm import tqdm
+import sys
+sys.path.append('./BaselineComputations/')
+import strand_requirements
 
 """
-Calculates by backtracking the number of strands that hold the homopolymer constraint
+Calculates by backtracking the number of strands that hold the no-homopolymers constraint
 and the GC/AT 5% almost balanced constraint.
 """
 
@@ -41,10 +45,8 @@ def calc_strands(n, m, verbose=False) -> int:
     """ Returns the number of strands of length n and maximum homopolymer length of m.
         If verbose==True, all of the strands that hold the conditions will be printed as well. """
     
-    w_min = ceil(0.45 * n)
-    w_max = floor(0.55 * n)
-    if w_max < w_min:
-        w_min = w_max = n//2  # by definition of balanced in Knuth
+    w_min, w_max = strand_requirements.min_max_weight(n)
+    
     return _calc_strands_wrapper(n=n, m=m, w_min=w_min, w_max=w_max, str='', verbose=verbose)
 
 
