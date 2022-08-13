@@ -1,5 +1,5 @@
 
-# Baseline computation for both requirements
+# Baseline computation for both Almost balanced and RLL
 This folder contains everything needed to compute the number of strands that follow the requirements as defined in
 `strand_requirements.py` (More details on this file are bellow).
 
