@@ -6,7 +6,7 @@ from tqdm import tqdm
 """
 Calculates the number of bits for minimum and optimal redundancy, for the constraint of no homopolymers of length > 3,
 without the constraint of balance or almost balance.
-This is done by the recursice function: F(n) = 3*(F(n-1) + F(n-2) + F(n-3)), and F(n) = 4^n for n=1,2,3.
+This is done by the recursive function: F(n) = 3*(F(n-1) + F(n-2) + F(n-3)), and F(n) = 4^n for n=1,2,3.
 """
 
 

@@ -1,9 +1,10 @@
-from math import comb, fabs, log2, ceil, floor
 import numpy as np
 import pandas as pd
-import common
-from PowerSeries import PowerSeries
 from tqdm import tqdm
+import sys
+sys.path.append('./BaselineComputations/')
+import strand_requirements
+from PowerSeries import PowerSeries
 
 
 def _create_D1():
@@ -33,9 +34,9 @@ if __name__ == "__main__":
     
     D1 = _create_D1()
 
-    N4 = PowerSeries(common.MAX_n + 1, common.MAX_w + 1)
+    N4 = PowerSeries(strand_requirements.MAX_n + 1, strand_requirements.MAX_w + 1)
 
-    for i in tqdm(range(common.MAX_n)):
+    for i in tqdm(range(strand_requirements.MAX_n)):
         if(i==0):
             Dk = _create_D1()
         else:
@@ -45,14 +46,15 @@ if __name__ == "__main__":
             N4 += val
     
     num_of_strands = [0]
-    for n in range(1, common.MAX_n + 1):
+    for n in range(1, strand_requirements.MAX_n + 1):
         num_of_strands.append(0)
-        min_w = ceil(0.45*n)
-        max_w = floor(0.55*n)
-        max_w = max_w + 1 if (max_w<min_w) else max_w
+        min_w, max_w = strand_requirements.min_man_w(n)
         for w in range(min_w, max_w+1):
             num_of_strands[n]+=(1/3)*N4.data[n,w]
 
     print(num_of_strands)
-    pd.DataFrame(N4.data).to_csv("./N4_calc.csv")
-    pd.DataFrame(num_of_strands).to_csv("./number_of_strands_by_length_using_N4.csv")
+    pd.DataFrame(N4.data).to_csv("BaselineComputations/Results/AlmostBalancedAndRLL-N4_PowerSeries.csv")
+    num_of_strands = pd.DataFrame(num_of_strands)
+    num_of_strands.index.name = "Strand length"
+    num_of_strands.columns = ["Number of possible strands"]
+    num_of_strands.to_csv("BaselineComputations/Results/AlmostBalancedAndRLL-number_of_strands_by_length_using_N4.csv")

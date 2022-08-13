@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
-from common import  m, MAX_n, MAX_w
+import sys
+sys.path.append('./BaselineComputations/')
+from strand_requirements import  m, MAX_n, MAX_w
 
 class PowerSeries:
     def __init__(self, rows=-1, cols=-1, is_matrix=True):
@@ -11,7 +13,7 @@ class PowerSeries:
             self.is_matrix = None
             self.data = None
     
-    def init_T(self):
+    def init_T(self): # This initiates the power series according to the function T defined in the article
         self.is_matrix = False
         self.data  = np.ones(m+1)
         self.data[0] = 0
@@ -41,36 +43,12 @@ class PowerSeries:
         ps_self = self.data if (not self.is_matrix or len(self.data.shape) > 1) else np.diag(self.data)
         ps_other = other.data if (not other.is_matrix or len(other.data.shape) > 1) else np.diag(other.data)
 
-        # if (not self.is_matrix or len(self.data.shape) > 1):
-        #     ps_self = self.data
-        # else: 
-        #     ps_self = np.diag(self.data)
-        #     ps_self[0,0] = 0
-        # if (not other.is_matrix or len(other.data.shape) > 1):
-        #     ps_other = other.data
-        # else: 
-        #     ps_other = np.diag(other.data)
-        #     ps_other[0,0] = 0
-
         if (self.is_matrix and other.is_matrix):
             new_rows = min(ps_self.shape[0] + ps_other.shape[0], MAX_n + 1)
             new_cols = min(ps_self.shape[1] + ps_other.shape[1], MAX_w + 1)
 
             result = PowerSeries(new_rows, new_cols)
 
-            # #option 1:
-            # for i in range(new_rows):
-            #     for j in range(new_cols):
-                
-            #         for k in range(i):
-            #             for l in range(j):
-            #                 if (k>(self.data.shape[0]-1) or (i-k)>(other.data.shape[0]-1)):
-            #                     continue
-            #                 if (l>(self.data.shape[1]-1) or (j-l)>(other.data.shape[1]-1)):
-            #                     continue
-            #                 result.data[i,j] += self.data[k,l]*other.data[i-k,j-l]
-            
-            #option 2:
             for self_i in range(min(ps_self.shape[0], new_rows)):
                 for self_j in range(min(ps_self.shape[1], new_cols)):
                     
