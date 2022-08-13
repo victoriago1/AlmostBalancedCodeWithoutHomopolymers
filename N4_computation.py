@@ -1,84 +1,58 @@
 from math import comb, fabs, log2, ceil, floor
 import numpy as np
 import pandas as pd
+import common
+from PowerSeries import PowerSeries
+from tqdm import tqdm
 
 
+def _create_D1():
+    D1 = np.full((4, 4), None)
 
-m = 3
-MAX_n = 1000
-MAX_w = floor(0.55*MAX_n)
-
-class PowerSeries:
-    def __init__(self, rows = -1, cols=-1):
-        if (rows > 0):
-            self.is_matrix = True
-            self.data  = np.zeros((rows, cols))
-    
-    def init_T(self):
-        self.is_matrix = False
-        self.data  = np.ones(m)
-
-    def init_T1(self):
-        self.is_matrix = True
-        self.data  = np.ones(m)
-    
-    def __mul__(self, other):
-        ps_self = self.data if (not self.is_matrix or self.data.shape[1]>0) else np.diag(self.data)
-        ps_other = other.data if (not other.is_matrix or other.data.shape[1]>0) else np.diag(other.data)
-
-        if (self.is_matrix and other.is_matrix):
-            new_rows = min(self.data.shape[0] + other.data.shape[0], MAX_n)
-            new_cols = min(self.data.shape[1] + other.data.shape[1], MAX_w)
-
-            result = PowerSeries(new_rows, new_cols)
-
-            # #option 1:
-            # for i in range(new_rows):
-            #     for j in range(new_cols):
-                
-            #         for k in range(i):
-            #             for l in range(j):
-            #                 if (k>(self.data.shape[0]-1) or (i-k)>(other.data.shape[0]-1)):
-            #                     continue
-            #                 if (l>(self.data.shape[1]-1) or (j-l)>(other.data.shape[1]-1)):
-            #                     continue
-            #                 result[i,j] += self.data[k,l]*other.data[i-k,j-l]
-            
-            #option 2:
-            for self_i in range(min(ps_self.shape[0], new_rows)):
-                for self_j in range(min(ps_self.shape[1], new_cols)):
-                    
-                    self_coeff = ps_self[self_i, self_j]
-
-                    for other_i in range(min(ps_other.shape[0], new_rows-self_i)):
-                        for other_j in range(min(ps_other.shape[1], new_cols-self_j)):
-                            result[self_i+other_i, self_j+other_j] = self_coeff*ps_other[other_i, other_j]
-            
-        elif(self.is_matrix):
-            for self_i in range(min(ps_self.shape[0], new_rows)):
-                for self_j in range(min(ps_self.shape[1], new_cols)):
-                    
-                    self_coeff = ps_self[self_i, self_j]
-
-                    for other_i in range(min(ps_other.shape[0], new_rows-self_i)):
-                        result[self_i+other_i, self_j] = self_coeff*ps_other[other_i]
-
-        else:
-            for other_i in range(min(ps_other.shape[0], new_rows)):
-                for other_j in range(min(ps_other.shape[1], new_cols)):                    
-                   
-                    other_coeff = ps_other[other_i, other_j]
-
-                    for self_i in range(min(ps_self.shape[0], new_rows-other_i)):
-                        result[self_i+other_i, other_j] = other_coeff*ps_self[self_i]
-    
-        return result
-                
-
-
-    
-
-                
+    for (i,j), val in np.ndenumerate(D1):
+        if (i==j):
+            D1[i,j] = PowerSeries(1, 1, False)
         
+        elif (i<=1):
+            D1[i,j] = PowerSeries()
+            D1[i,j].init_T()
+        
+        else:
+            D1[i,j] = PowerSeries()
+            D1[i,j].init_T1()
+
+    return D1    
+
+def _print_D(D):
+    for (i,j), val in np.ndenumerate(D):
+        if(j == 0):
+            print("*******************************************")
+        print("i,j = {},{}: {}".format(i, j, val))
 
 if __name__ == "__main__":
+    
+    D1 = _create_D1()
+
+    N4 = PowerSeries(common.MAX_n + 1, common.MAX_w + 1)
+
+    for i in tqdm(range(common.MAX_n)):
+        if(i==0):
+            Dk = _create_D1()
+        else:
+            Dk = Dk@D1
+
+        for (i,j), val in np.ndenumerate(Dk):
+            N4 += val
+    
+    num_of_strands = [0]
+    for n in range(1, common.MAX_n + 1):
+        num_of_strands.append(0)
+        min_w = ceil(0.45*n)
+        max_w = floor(0.55*n)
+        max_w = max_w + 1 if (max_w<min_w) else max_w
+        for w in range(min_w, max_w+1):
+            num_of_strands[n]+=(1/3)*N4.data[n,w]
+
+    print(num_of_strands)
+    pd.DataFrame(N4.data).to_csv("./N4_calc.csv")
+    pd.DataFrame(num_of_strands).to_csv("./number_of_strands_by_length_using_N4.csv")
