@@ -6,6 +6,10 @@ from strand_requirements import  m, MAX_n, MAX_w
 
 class PowerSeries:
     def __init__(self, rows=-1, cols=-1):
+
+    ''' Each power series is represented by a matrix (or vector) in which cell(i,j)
+        represents the coeff of (x^i),(y^j) '''
+
         if (rows > 0):
             self.is_compact = False
             self.data = np.zeros((rows, cols))
@@ -13,23 +17,36 @@ class PowerSeries:
             self.is_compact = None
             self.data = None
     
-    def init_T(self): # This initiates the power series according to the function T defined in the article
+    def init_T(self):
+
+        ''' Initiates the power series according to the function T defined in the article -
+            T = x + x^2 + ... + x^m
+            (See README for more information about the article) '''
+
         self.is_compact = False
         self.data = np.ones((m+1,1))
         self.data[0,0] = 0
 
     def init_T1(self):
+
+        ''' Initiates the power series according to the function T_1 defined in the article - 
+            T_1 = xy + (xy)^2 + ... + (xy)^m
+            (See README for more information about the article) '''
+
         self.is_compact = True
         self.data = np.ones(m+1)
         self.data[0] = 0
 
 
     def __mul__(self, other):
+
+        ''' Implement overloading of multiplication between two given power series, self and other '''
+
         ps_self = np.diag(self.data) if self.is_compact else self.data
         ps_other = np.diag(other.data) if other.is_compact else other.data
 
-        new_rows = min(ps_self.shape[0] + ps_other.shape[0], MAX_n + 1)
-        new_cols = min(ps_self.shape[1] + ps_other.shape[1], MAX_w + 1)
+        new_rows = min(ps_self.shape[0] + ps_other.shape[0], MAX_n + 1) # restrict unnecessary computations
+        new_cols = min(ps_self.shape[1] + ps_other.shape[1], MAX_w + 1) # restrict unnecessary computations
         result = PowerSeries(new_rows, new_cols)
 
         for self_i in range(min(ps_self.shape[0], new_rows)):
@@ -46,8 +63,9 @@ class PowerSeries:
 
     def add_matrix_to_self(self, ps_matrix):
 
-        # note: self.is_compact must be false
-        # note: ps_other shape should be in this point smaller or equal to self
+        ''' Implement addition between two given power series.
+            Note that self.is_compact must be false and that ps_other shape must be smaller or equal to self
+        '''
 
         for matrix_i in range(ps_matrix.shape[0]):
             for matrix_j in range(ps_matrix.shape[1]):
@@ -56,6 +74,9 @@ class PowerSeries:
         return self
     
     def __add__(self, other):
+
+        ''' Implement overloading of addition between two given power series, self and other '''
+
         ps_self = np.diag(self.data) if self.is_compact else self.data
         ps_other = np.diag(other.data) if other.is_compact else other.data
         
@@ -69,6 +90,9 @@ class PowerSeries:
 
 
     def __str__(self):
+
+        ''' Implement overloading of the representation of a power series by a string '''
+
         str = ""
         if self.is_matrix:
             ps_self = self.data if (len(self.data.shape) > 1) else np.diag(self.data)
