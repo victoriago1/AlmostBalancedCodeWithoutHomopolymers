@@ -2,13 +2,14 @@ import numpy as np
 import pandas as pd
 import sys
 sys.path.append('./BaselineComputations/')
-from strand_requirements import  m, MAX_n, MAX_w
+from strand_requirements import  m, MAX_w
+from strand_requirements import  MAX_n_quaternary as MAX_n
 
 class PowerSeries:
     def __init__(self, rows=-1, cols=-1):
-
-    ''' Each power series is represented by a matrix (or vector) in which cell(i,j)
-        represents the coeff of (x^i),(y^j) '''
+        
+        ''' Each power series is represented by a matrix (or vector) in which cell(i,j)
+            represents the coeff of (x^i),(y^j) '''
 
         if (rows > 0):
             self.is_compact = False

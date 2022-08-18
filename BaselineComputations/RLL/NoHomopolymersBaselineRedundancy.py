@@ -2,35 +2,36 @@ from math import log2, ceil, floor
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
+import sys
+sys.path.append('./BaselineComputations/')
+import strand_requirements
 
 """
-Calculates the number of bits for minimum and optimal redundancy, for the constraint of no homopolymers of length > 3,
+Calculates the number of possible strands for the constraint of no homopolymers of length > 3,
 without the constraint of balance or almost balance.
 This is done by the recursive function: F(n) = 3*(F(n-1) + F(n-2) + F(n-3)), and F(n) = 4^n for n=1,2,3.
 """
 
-
-if __name__ == "__main__":
-    N = 1000
+def calc_strands_count():
+    '''
+    Returns an array, for every n (length of quaternary strand) the value is the number of possible strands of
+    that length that satisfy the constraint. '''
+    
     start = 1
-    arr = np.empty((N,2))
+    arr = np.zeros(strand_requirements.MAX_n_quaternary + 1)
+    arr[0] = 0
     prev1 = prev2 = prev3 = 0
 
-    COL_N = 0
-    COL_REDUNDANCY = 1
-
-    for n in tqdm(range(start, N+start)):
-        arr_n_index = n - start
+    for n in tqdm(range(start, strand_requirements.MAX_n_quaternary+start)):
         num_of_strands = 4 ** n if n<=3 else 3 * (prev1 + prev2 + prev3)
-        max_binary_length = floor(log2(num_of_strands))
-        binary_redundancy = 2 * n - max_binary_length
-
-        arr[arr_n_index][COL_N] = n
-        arr[arr_n_index][COL_REDUNDANCY] = binary_redundancy
+        arr[n] = log2(num_of_strands)
 
         prev3 = prev2
         prev2 = prev1
         prev1 = num_of_strands
-    
-    df = pd.DataFrame(arr, columns=['4-ary n', 'binary redundancy'])
-    df.to_csv("./redundancy_of_no_homopolymers_constraint.csv")
+    return arr
+
+if __name__ == "__main__":
+    arr = calc_strands_count()
+    df = pd.DataFrame(arr, columns=['max length of binary vectors'])
+    df.to_csv("./BaselineComputations/Results/max_binary_vectors_length_for_homopolymers_constraint.csv")

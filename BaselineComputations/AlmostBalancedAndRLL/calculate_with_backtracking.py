@@ -35,7 +35,7 @@ def calc_longest_homopolymer(str) -> int:
 
 def calc_weight(str):
 
-    """ Returns the wheight of the strand. """
+    """ Returns the weight of the strand. """
 
     return str.count('a') + str.count('t')
 
