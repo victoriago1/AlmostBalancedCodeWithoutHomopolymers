@@ -42,4 +42,4 @@ def calc_strands_count():
 if __name__ == "__main__":
     arr = calc_strands_count()
     df = pd.DataFrame(arr, columns=['max length of binary vectors'])
-    df.to_csv("./BaselineComputations/Results/max_binary_vectors_length_for_almost_balances_constraint.csv")
+    df.to_csv("./BaselineComputations/Results/max_binary_vectors_length_for_strictly_balances_constraint.csv")

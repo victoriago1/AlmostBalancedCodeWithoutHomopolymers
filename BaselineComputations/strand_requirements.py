@@ -2,9 +2,9 @@ from math import ceil, floor
 
 REDUNDANCY_LIMIT_PERCENTAGE = 0
 REDUNDANCY_LIMIT_LETTERS = 5
-IMBALANCE_PERCENTAGE = 5 # The acceptable imbalance of each strand in percentages
+IMBALANCE_PERCENTAGE = 0 # The acceptable imbalance of each strand in percentages
 m = 3 # Longest homopolymer run
-MAX_n_binary = 512 # Longest binary string length
+MAX_n_binary = 100000 # Longest binary string length
 MAX_n_quaternary = ceil((MAX_n_binary/2.0) + ((0.01*REDUNDANCY_LIMIT_PERCENTAGE)*MAX_n_binary)) +\
                    REDUNDANCY_LIMIT_LETTERS # Longest strand length
 MAX_w = floor((0.5 + (0.01*IMBALANCE_PERCENTAGE))*MAX_n_quaternary) # Maximum weight of the longest strand
