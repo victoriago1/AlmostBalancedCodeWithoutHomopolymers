@@ -33,7 +33,7 @@ def compute_log2_count(strand_redundancy_df, method):
     log2_count.to_csv("EncodingAlgorithms/Results/" + method + "- Log2 Count.csv")
     return log2_count
 
-def compute_quaternary_redundancy(strand_redundancy_df, method):
+def compute_quaternary_redundancy(temp_strand_redundancy_array, method):
     start = 1
     redundancy = np.zeros(strand_requirements.MAX_n_quaternary + start + 1)
     
@@ -42,17 +42,10 @@ def compute_quaternary_redundancy(strand_redundancy_df, method):
 
     
     for n in tqdm(range(start, strand_requirements.MAX_n_quaternary + start)):
-        # calculate the maximal length that may represent a binary string of length n:
-        last_original_length = strand_redundancy_df.loc[strand_redundancy_df['Final_length'] <= n,
-                                                        'Original_length'].max()
-
-        # when strand_redundancy_array[last_original_length, COL_FINAL_LENGTH] >= n,
-        # the length n is sufficient to represent quaternary strands of length last_original_length,
-        # meaning the redundancy is n-last_original_length.
-        redundancy[n] = n-last_original_length
+        redundancy[n] = temp_strand_redundancy_array[n, common.COL_QUATERNARY_REDUNDANCY]
 
     redundancy = pd.DataFrame(redundancy)
-    redundancy.index.name = "Final Quaternary Strand Length"
+    redundancy.index.name = "Original Quaternary Strand Length"
     redundancy.columns = [method + " quaternary redundancy"]
     redundancy.to_csv("EncodingAlgorithms/Results/" + method + "- Quaternary Redundancy.csv")
     return redundancy
@@ -101,7 +94,7 @@ if __name__ == "__main__":
         temp_strand_redundancy_df.columns = ["Quaternary_redundancy", "Final_length"]
         temp_strand_redundancy_df = temp_strand_redundancy_df.rename_axis('Original_length').reset_index()
         temp_log2_count_array = compute_log2_count(temp_strand_redundancy_df, method)
-        temp_quaternary_redundancy_array = compute_quaternary_redundancy(temp_strand_redundancy_df, method)
+        temp_quaternary_redundancy_array = compute_quaternary_redundancy(temp_strand_redundancy_array, method)
         temp_binary_redundancy_array = compute_binary_redundancy(temp_strand_redundancy_df, method)
 
         if (log2_count_array is None):
@@ -120,7 +113,7 @@ if __name__ == "__main__":
     log2_count_array.to_csv("EncodingAlgorithms/Results/General Log2 Count.csv")
 
     quaternary_redundancy_array = pd.DataFrame(quaternary_redundancy_array, columns=encoding_method)
-    quaternary_redundancy_array.index.name = "Final Quaternary Strand Length"
+    quaternary_redundancy_array.index.name = "Original Quaternary Strand Length"
     quaternary_redundancy_array.to_csv("EncodingAlgorithms/Results/General Quaternary Redundancy.csv")
 
     binary_redundancy_array = pd.DataFrame(binary_redundancy_array, columns=encoding_method)
