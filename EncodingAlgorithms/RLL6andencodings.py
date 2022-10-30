@@ -1,10 +1,9 @@
-from math import comb, log2, ceil, floor
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
-# import sys
-# sys.path.append('./BaselineComputations/')
-from BaselineComputations import strand_requirements
+import sys
+sys.path.append('BaselineComputations/')
+import strand_requirements
 
 def min_encoded_length_by_method(x1, x2, x3, x4, x5):
 
@@ -22,7 +21,7 @@ def compute_redundancy():
                'C' : 0}
 
     start = 80
-    max_n = 500
+    max_n = strand_requirements.MAX_n_quaternary
     results_per_n = np.empty((max_n+1) - start)
 
     for n in tqdm(range(start, max_n+1)):
@@ -51,10 +50,10 @@ def compute_redundancy():
         results_per_n[n-start] = max_redundancy_per_length
 
     df = pd.DataFrame(results_per_n, columns=['max redundancy in quaternary letters'])
-    df.to_csv("Results/max_quaternary_redundancy_for_encoding_versions_idea.csv")
+    df.to_csv("EncodingAlgorithms/Results/max_quaternary_redundancy_for_encoding_versions_idea.csv")
 
     df = pd.DataFrame.from_dict(methods, orient='index', columns=['counter per method'])
-    df.to_csv("Results/method_counter_for_encoding_versions_idea.csv")
+    df.to_csv("EncodingAlgorithms/Results/method_counter_for_encoding_versions_idea.csv")
 
     return results_per_n
 
