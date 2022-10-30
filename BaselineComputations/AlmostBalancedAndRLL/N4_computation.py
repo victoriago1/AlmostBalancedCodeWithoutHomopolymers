@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 import sys
-sys.path.append('./BaselineComputations/')
+sys.path.append('BaselineComputations/')
 import strand_requirements
 from PowerSeries import PowerSeries
 
@@ -58,13 +58,13 @@ def calc_strands_count():
 
         num_of_strands[n, COL_MAX_BINARY_LENGTH] = log2(num_of_strands[n, COL_NUM_OF_STRANDS])
 
-    pd.DataFrame(N4.data).to_csv("BaselineComputations/Results/AlmostBalancedAndRLL-N4_PowerSeries.csv")
+    pd.DataFrame(N4.data).to_csv("BaselineComputations/Results/Almost Balanced And RLL- N4_PowerSeries.csv")
 
     strands_count = num_of_strands   
     num_of_strands = pd.DataFrame(num_of_strands)
-    num_of_strands.index.name = "Strand length"
-    num_of_strands.columns = ["Number of possible strands", "Max length of binary vectors"]
-    num_of_strands.to_csv("BaselineComputations/Results/AlmostBalancedAndRLL-number_of_strands_by_length_using_N4.csv")
+    num_of_strands.index.name = "Final Quaternary String Length"
+    num_of_strands.columns = ["Number of possible strands", "Log2 Count"]
+    num_of_strands.to_csv("BaselineComputations/Results/Almost Balanced And RLL Baseline Redundancy (N4 calc).csv")
 
     return strands_count[:,COL_MAX_BINARY_LENGTH]
 

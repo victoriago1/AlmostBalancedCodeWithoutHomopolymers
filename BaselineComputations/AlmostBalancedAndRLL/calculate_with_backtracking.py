@@ -1,7 +1,7 @@
 from math import ceil, floor
 from tqdm import tqdm
 import sys
-sys.path.append('./BaselineComputations/')
+sys.path.append('BaselineComputations/')
 import strand_requirements
 
 """

@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import sys
-sys.path.append('./BaselineComputations/')
+sys.path.append('BaselineComputations/')
 from strand_requirements import  m, MAX_w
 from strand_requirements import  MAX_n_quaternary as MAX_n
 

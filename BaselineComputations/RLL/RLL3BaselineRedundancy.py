@@ -1,9 +1,9 @@
-from math import log2, ceil, floor
+from math import log2
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
 import sys
-sys.path.append('./BaselineComputations/')
+sys.path.append('BaselineComputations/')
 import strand_requirements
 
 """
@@ -33,5 +33,6 @@ def calc_strands_count():
 
 if __name__ == "__main__":
     arr = calc_strands_count()
-    df = pd.DataFrame(arr, columns=['max length of binary vectors'])
-    df.to_csv("./BaselineComputations/Results/max_binary_vectors_length_for_homopolymers_constraint.csv")
+    df = pd.DataFrame(arr, columns=['Log2 Count'])
+    df.index.name = "Final Quaternary String Length"
+    df.to_csv("BaselineComputations/Results/3-RLL Baseline Redundancy.csv")
