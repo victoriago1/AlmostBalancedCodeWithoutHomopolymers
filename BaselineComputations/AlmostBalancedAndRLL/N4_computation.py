@@ -69,7 +69,7 @@ def calc_strands_count():
         for w in range(min_w, max_w+1):
             num_of_strands[n, COL_NUM_OF_STRANDS] += (1/3)*N4.data[n,w]
 
-        num_of_strands[n, COL_MAX_BINARY_LENGTH] = log2(num_of_strands[n, COL_NUM_OF_STRANDS], dtype=np.float128)
+        num_of_strands[n, COL_MAX_BINARY_LENGTH] = np.log2(num_of_strands[n, COL_NUM_OF_STRANDS], dtype=np.float128)
 
     pd.DataFrame(N4.data).to_csv("BaselineComputations/Results/Almost Balanced And RLL- N4_PowerSeries.csv")
 
