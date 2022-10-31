@@ -46,7 +46,7 @@ def calc_strands_count():
         for (i,j), val in np.ndenumerate(Dk):
             N4 += val
     
-    num_of_strands = np.zeros((strand_requirements.MAX_n_quaternary + 1, 2))
+    num_of_strands = np.zeros((strand_requirements.MAX_n_quaternary + 1, 2), dtype=np.float128)
     COL_NUM_OF_STRANDS = 0
     COL_MAX_BINARY_LENGTH = 1
     num_of_strands[0] = 0
@@ -56,7 +56,7 @@ def calc_strands_count():
         for w in range(min_w, max_w+1):
             num_of_strands[n, COL_NUM_OF_STRANDS] += (1/3)*N4.data[n,w]
 
-        num_of_strands[n, COL_MAX_BINARY_LENGTH] = log2(num_of_strands[n, COL_NUM_OF_STRANDS])
+        num_of_strands[n, COL_MAX_BINARY_LENGTH] = log2(num_of_strands[n, COL_NUM_OF_STRANDS], dtype=np.float128)
 
     pd.DataFrame(N4.data).to_csv("BaselineComputations/Results/Almost Balanced And RLL- N4_PowerSeries.csv")
 

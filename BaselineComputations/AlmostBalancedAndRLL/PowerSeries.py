@@ -13,7 +13,7 @@ class PowerSeries:
 
         if (rows > 0):
             self.is_compact = False
-            self.data = np.zeros((rows, cols))
+            self.data = np.zeros((rows, cols), dtype=np.float128)
         else:
             self.is_compact = None
             self.data = None
@@ -25,7 +25,7 @@ class PowerSeries:
             (See README for more information about the article) '''
 
         self.is_compact = False
-        self.data = np.ones((m+1,1))
+        self.data = np.ones((m+1,1), dtype=np.float128)
         self.data[0,0] = 0
 
     def init_T1(self):
@@ -35,7 +35,7 @@ class PowerSeries:
             (See README for more information about the article) '''
 
         self.is_compact = True
-        self.data = np.ones(m+1)
+        self.data = np.ones((m+1), dtype=np.float128)
         self.data[0] = 0
 
 
