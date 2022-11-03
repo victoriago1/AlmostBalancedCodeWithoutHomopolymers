@@ -25,11 +25,13 @@ def _create_D1():
 
     return D1    
 
+
 def _print_D(D):
     for (i,j), val in np.ndenumerate(D):
         if(j == 0):
             print("*******************************************")
         print("i,j = {},{}: {}".format(i, j, val))
+
 
 def calc_strands_count():
     D1 = _create_D1()
@@ -67,6 +69,7 @@ def calc_strands_count():
     num_of_strands.to_csv("BaselineComputations/Results/Almost Balanced And RLL Baseline Redundancy (N4 calc).csv")
 
     return strands_count[:,COL_MAX_BINARY_LENGTH]
+
 
 if __name__ == "__main__":
     
