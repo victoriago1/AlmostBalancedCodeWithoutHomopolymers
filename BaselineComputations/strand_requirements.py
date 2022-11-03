@@ -1,5 +1,12 @@
 from math import ceil, floor
 
+"""
+This file holds globally defined parameters representing the requirements from a strand, including:
+    - percentage of imbalanced allowed
+    - longest length of homopolymer run allowed
+    - restrictions for the computations, such as the maximum length of a strand the computation should include
+"""
+
 REDUNDANCY_LIMIT_PERCENTAGE = 8
 REDUNDANCY_LIMIT_LETTERS = 0
 IMBALANCE_PERCENTAGE = 5 # The acceptable imbalance of each strand in percentages
@@ -10,6 +17,7 @@ MAX_n_quaternary = ceil((MAX_n_binary/2.0) + ((0.01*REDUNDANCY_LIMIT_PERCENTAGE/
 MAX_w = floor((0.5 + (0.01*IMBALANCE_PERCENTAGE))*MAX_n_quaternary) # Maximum weight of the longest strand
                                                          # (used to restrict unnecessary calculations)
 
+
 def min_weight(n):
     """ Returns the minimum weight possible for a strand of length n,
         according to the imbalanced percentage defined in this file """
@@ -17,12 +25,14 @@ def min_weight(n):
     pure_imbalance = (0.5 - (0.01*IMBALANCE_PERCENTAGE))
     return ceil(pure_imbalance*n)
 
+
 def max_weight(n):
     """ Returns the maximum weight possible for a strand of length n,
         according to the imbalanced percentage defined in this file """
 
     pure_imbalance = (0.5 + (0.01*IMBALANCE_PERCENTAGE))
     return floor(pure_imbalance*n)
+
 
 def min_max_weight(n):
     """ Returns both min and max weight possible for a strand of length n,

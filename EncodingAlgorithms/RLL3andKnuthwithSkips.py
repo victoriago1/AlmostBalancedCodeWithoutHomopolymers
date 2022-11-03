@@ -13,6 +13,11 @@ import common
 COL_INDEX_SIZE = 0
 COL_DELTA = 1
 
+"""
+Calculates the number of possible strands for the first proposed solution algorithm,
+with 3-RLL & Knuth with skips.
+"""
+ 
 def compute_index_size_and_delta (max_n):
     T2_log_count_array = RLL3BaselineRedundancy.calc_strands_count()
     imbalance = 0.01*strand_requirements.IMBALANCE_PERCENTAGE
@@ -41,10 +46,11 @@ def compute_index_size_and_delta (max_n):
     df.to_csv("EncodingAlgorithms/Results/Index and optimal delta per length.csv")
     return arr
 
+
 def calc_encoding_redundancy():
-    '''
-    Returns an array, for every n (length of quaternary strand) the value is the length of the strand that satisfy the
-    constraint after encoding. '''
+    """
+    Returns an array, for every n (length of quaternary strand) the value is the length of the strand that satisfies the
+    constraint after encoding. """
 
     max_length_for_delta_calc = ceil(1.25*strand_requirements.MAX_n_quaternary + 1)
     delta_and_index = compute_index_size_and_delta(max_n=max_length_for_delta_calc)
@@ -66,6 +72,7 @@ def calc_encoding_redundancy():
             break
 
     return arr
+
 
 if __name__ == "__main__":
     arr = calc_encoding_redundancy()

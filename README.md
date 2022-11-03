@@ -11,7 +11,7 @@ This repository is the accompanying code for the project "Almost-Balanced and Ma
     * **AlmostBalanced**: calculates optimal results for the imbalance constraint.
         * `AlmostBalancedBaselineRedundancy.py`
     * **AlmostBalancedAndRLL**: calculates optimal results for combined constraints.
-        * `PowerSeries.py` and `N4_computation.py`: our custom implementation of the *N4(m, w, n)* formula [by Immink and Cai](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9032172).
+        * `PowerSeries.py` and `N4_computation.py`: our custom implementation of the *N4(m, w, n)* formula [by Immink and Cai](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9032172). More explanations regarding the implementation are in [the N4_README file](.\BaselineComputations\AlmostBalancedAndRLL\N4_README.md)
         * `calculate_with_backtracking.py`: calculates optimal result with backtracking. Used to validate results of the *N4(m, w, n)* formula implementation for small lengths.
     * **Results**: contains CSV files of the results.
     * `baseline_computations.py`: a script for running all optimal bounds calculations and saving them in seperate CSV files.
@@ -31,11 +31,11 @@ This repository is the accompanying code for the project "Almost-Balanced and Ma
 
 The project is written in Python 3.
 
-For installing the project's requirements, run from root folder:
+For installing the project's requirements, run:
 ```
 pip install -r requirements.txt
 ```
-Choose the needed script or implementation, and modify the `main` lines if needed before running the script.
+Choose the needed script or implementation, and modify the `main` lines if needed before running the script. Every file is documented and changes could be easily applied.
 
 
 ## Authors

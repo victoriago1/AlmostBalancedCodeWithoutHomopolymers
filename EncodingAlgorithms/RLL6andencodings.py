@@ -5,15 +5,21 @@ import sys
 sys.path.append('BaselineComputations/')
 import strand_requirements
 
+"""
+Calculates the redundancy of the third proposed solution algorithm,
+with 6-RLL & replacemnt codes.
+"""
+
 def min_encoded_length_by_method(x1, x2, x3, x4, x5):
 
-    ''' calculates min length of letters replacing original zero runs and subtracts the original zeros length '''
+    """ calculates min length of letters replacing original zero runs and subtracts the original zeros length """
     methods = {'A' : (2*(x1+x2+x3) + 3*(x4+x5)),
                'B' : (x1 + 3*(x2+x3) + 4*(x4+x5)),
                'C' : (x1 + 2*x2 + 6*(x3+x4+x5) + 1)}
     
     return min(methods, key=methods.get), (min(methods.values()) - (x1+2*x2+3*x3+4*x4+5*x5))
     # TODO return vector of mins
+
 
 def compute_redundancy():
     methods = {'A' : 0,
@@ -56,6 +62,7 @@ def compute_redundancy():
     df.to_csv("EncodingAlgorithms/Results/method_counter_for_encoding_versions_idea.csv")
 
     return results_per_n
+
 
 if __name__ == "__main__":
     compute_redundancy()

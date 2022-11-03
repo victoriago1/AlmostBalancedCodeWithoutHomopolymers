@@ -12,6 +12,10 @@ import AlmostBalancedBaselineRedundancy
 import N4_computation
 import RLL3BaselineRedundancy
 
+"""
+A script for running all optimal bounds calculations and saving them in seperate CSV files.
+"""
+
 def compute_log2_count(strand_count_array, method):
     log2_count = strand_count_array
     log2_count = pd.DataFrame(log2_count)
@@ -19,6 +23,7 @@ def compute_log2_count(strand_count_array, method):
     log2_count.columns = [method + " log2 of possible strands"]
     log2_count.to_csv("BaselineComputations/Results/" + method + "- Log2 Count.csv")
     return log2_count
+
 
 def compute_quaternary_redundancy(strand_count_array, method):
     start = 1
@@ -43,6 +48,7 @@ def compute_quaternary_redundancy(strand_count_array, method):
     redundancy.columns = [method + " quaternary redundancy"]
     redundancy.to_csv("BaselineComputations/Results/" + method + "- Quaternary Redundancy.csv")
     return redundancy
+
 
 def compute_binary_redundancy(max_n_binary_per_n_quaternary, requirements_name):
     redundancy = np.zeros(strand_requirements.MAX_n_binary + 1)
@@ -70,6 +76,7 @@ def compute_binary_redundancy(max_n_binary_per_n_quaternary, requirements_name):
     redundancy.columns = [requirements_name + " redundancy in bits"]
     redundancy.to_csv("BaselineComputations/Results/" + requirements_name + "- Binary Redundancy.csv")
     return redundancy
+
 
 if __name__ == "__main__":
     log2_count_array = None

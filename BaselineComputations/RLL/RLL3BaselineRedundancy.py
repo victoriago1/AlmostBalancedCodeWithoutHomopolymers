@@ -7,15 +7,15 @@ sys.path.append('BaselineComputations/')
 import strand_requirements
 
 """
-Calculates the number of possible strands for the constraint of no homopolymers of length > 3,
+Calculates the number of possible strands for the constraint of no homopolymer runs of length > 3,
 without the constraint of balance or almost balance.
-This is done by the recursive function: F(n) = 3*(F(n-1) + F(n-2) + F(n-3)), and F(n) = 4^n for n=1,2,3.
+This is done by the recursive function: F(n) = 3*(F(n-1) + F(n-2) + F(n-3)), where F(n) = 4^n for n=1,2,3.
 """
 
 def calc_strands_count():
-    '''
+    """
     Returns an array, for every n (length of quaternary strand) the value is the number of possible strands of
-    that length that satisfy the constraint. '''
+    that length that satisfy the constraint. """
     
     start = 1
     arr = np.zeros(strand_requirements.MAX_n_quaternary + 1)

@@ -19,9 +19,9 @@ In the created CSV, the columns are the value of n and its redundancy.
 """
 
 def calc_strands_count():
-    '''
+    """
     Returns an array, for every n (length of quaternary strand) the value is the number of possible strands of
-    that length that satisfy the constraint. '''
+    length n that satisfy the constraint. """
     
     start = 2
     arr = np.empty(strand_requirements.MAX_n_quaternary + 1)

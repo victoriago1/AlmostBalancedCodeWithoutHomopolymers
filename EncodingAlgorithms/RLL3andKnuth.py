@@ -11,13 +11,13 @@ import RLL3BaselineRedundancy
 import common
 
 """
-Calculates the number of possible strands for the algorithm of 3-RLL & Knuth.
+Calculates the number of possible strands for the baseline solution algorithm of 3-RLL & Knuth.
 """
 
 def calc_encoding_redundancy():
-    '''
-    Returns an array, for every n (length of quaternary strand) the value is the length of the strand that satisfy the
-    constraint after encoding. '''
+    """
+    Returns an array, for every n (length of quaternary strand) the value is the length of the strand that satisfies the
+    constraint after encoding. """
     T2_log_count_array = RLL3BaselineRedundancy.calc_strands_count()
     start = 1
     arr = np.zeros((strand_requirements.MAX_n_quaternary + 1, 2))
@@ -39,6 +39,7 @@ def calc_encoding_redundancy():
         arr[n, common.COL_FINAL_LENGTH] = n + arr[n, common.COL_QUATERNARY_REDUNDANCY]
 
     return arr
+
 
 if __name__ == "__main__":
     arr = calc_encoding_redundancy()

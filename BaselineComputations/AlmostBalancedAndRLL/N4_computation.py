@@ -7,8 +7,15 @@ sys.path.append('BaselineComputations/')
 import strand_requirements
 from PowerSeries import PowerSeries
 
+"""
+This file computes the function N4(m, w, n) defined in the article and saves the
+results under the directory '../Results'.
+The script is meant to be run from the repository's root folder.
+"""
 
 def _create_D1():
+    """ Initiates the matrix D1 defined in the article. """
+
     D1 = np.full((4, 4), None)
 
     for (i,j), val in np.ndenumerate(D1):
@@ -27,6 +34,8 @@ def _create_D1():
 
 
 def _print_D(D):
+    """ Prints the given matrix D, where each entry is a PowerSeries. """
+
     for (i,j), val in np.ndenumerate(D):
         if(j == 0):
             print("*******************************************")
@@ -34,6 +43,7 @@ def _print_D(D):
 
 
 def calc_strands_count():
+    """ Calculates the number of strands that match the requirements specified in the strand_requirements.py file. """
     D1 = _create_D1()
 
     N4 = PowerSeries(strand_requirements.MAX_n_quaternary + 1, strand_requirements.MAX_w + 1)

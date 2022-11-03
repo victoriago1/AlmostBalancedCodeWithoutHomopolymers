@@ -21,7 +21,8 @@ This folder contains or uses the following files:
     This is in order to verify that the computations are correct.
 
 - `PowerSeries.py`:
-    This files implements a custom class "PowerSeries", including initializing the basic power series that are used in the article. The class easily computes multiplication and addition of different power series.
+    This file implements a custom class "PowerSeries", including initializing the basic power series that are used in the article.
+    The class includes multiplication and addition of different power series.
 
 - `N4_computation.py`:
     This file computes the function *N4(m, w, n)* defined in the article and saves the results under the directory '../Results'.

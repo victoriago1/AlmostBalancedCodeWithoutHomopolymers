@@ -5,11 +5,17 @@ sys.path.append('BaselineComputations/')
 from strand_requirements import  m, MAX_w
 from strand_requirements import  MAX_n_quaternary as MAX_n
 
+"""
+This file implements a custom class "PowerSeries", including initializing the basic power
+series that are used in the article.
+The class includes multiplication and addition of different power series.
+"""
+
 class PowerSeries:
     def __init__(self, rows=-1, cols=-1):
         
-        ''' Each power series is represented by a matrix (or vector) in which cell(i,j)
-            represents the coeff of (x^i),(y^j) '''
+        """ Each power series is represented by a matrix (or vector) in which cell(i,j)
+            represents the coeff of (x^i),(y^j) """
 
         if (rows > 0):
             self.is_compact = False
@@ -20,9 +26,9 @@ class PowerSeries:
     
     def init_T(self):
 
-        ''' Initiates the power series according to the function T defined in the article -
+        """ Initiates the power series according to the function T defined in the article -
             T = x + x^2 + ... + x^m
-            (See README for more information about the article) '''
+            (See README for more information about the article) """
 
         self.is_compact = False
         self.data = np.ones((m+1,1), dtype=np.float128)
@@ -30,9 +36,9 @@ class PowerSeries:
 
     def init_T1(self):
 
-        ''' Initiates the power series according to the function T_1 defined in the article - 
+        """ Initiates the power series according to the function T_1 defined in the article - 
             T_1 = xy + (xy)^2 + ... + (xy)^m
-            (See README for more information about the article) '''
+            (See README for more information about the article) """
 
         self.is_compact = True
         self.data = np.ones((m+1), dtype=np.float128)
@@ -41,7 +47,7 @@ class PowerSeries:
 
     def __mul__(self, other):
 
-        ''' Implement overloading of multiplication between two given power series, self and other '''
+        """ Implement overloading of multiplication between two given power series, self and other """
 
         ps_self = np.diag(self.data) if self.is_compact else self.data
         ps_other = np.diag(other.data) if other.is_compact else other.data
@@ -64,9 +70,9 @@ class PowerSeries:
 
     def add_matrix_to_self(self, ps_matrix):
 
-        ''' Implement addition between two given power series.
+        """ Implement addition between two given power series.
             Note that self.is_compact must be false and that ps_other shape must be smaller or equal to self
-        '''
+        """
 
         for matrix_i in range(ps_matrix.shape[0]):
             for matrix_j in range(ps_matrix.shape[1]):
@@ -76,7 +82,7 @@ class PowerSeries:
     
     def __add__(self, other):
 
-        ''' Implement overloading of addition between two given power series, self and other '''
+        """ Implement overloading of addition between two given power series, self and other """
 
         ps_self = np.diag(self.data) if self.is_compact else self.data
         ps_other = np.diag(other.data) if other.is_compact else other.data
@@ -92,13 +98,12 @@ class PowerSeries:
 
     def __str__(self):
 
-        ''' Implement overloading of the representation of a power series by a string '''
+        """ Implement overloading of the representation of a power series by a string """
 
         str = ""
         if self.is_matrix:
             ps_self = self.data if (len(self.data.shape) > 1) else np.diag(self.data)
             # matrix, x and y
-            # TODO: fix efficency 
             for (i,j), val in np.ndenumerate(ps_self):
                 if val:
                     if (j==0):

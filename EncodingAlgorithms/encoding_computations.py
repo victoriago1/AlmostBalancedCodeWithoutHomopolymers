@@ -11,6 +11,7 @@ import RLL3andKnuth
 import RLL3andKnuthwithSkips
 import RLL3andKnuthbyBlocks
 
+
 def compute_log2_count(strand_redundancy_df, method):
     start = 1
     log2_count = np.zeros(strand_requirements.MAX_n_quaternary + start + 1)
@@ -33,6 +34,7 @@ def compute_log2_count(strand_redundancy_df, method):
     log2_count.to_csv("EncodingAlgorithms/Results/" + method + "- Log2 Count.csv")
     return log2_count
 
+
 def compute_quaternary_redundancy(temp_strand_redundancy_array, method):
     start = 1
     redundancy = np.zeros(strand_requirements.MAX_n_quaternary + start + 1)
@@ -49,6 +51,7 @@ def compute_quaternary_redundancy(temp_strand_redundancy_array, method):
     redundancy.columns = [method + " quaternary redundancy"]
     redundancy.to_csv("EncodingAlgorithms/Results/" + method + "- Quaternary Redundancy.csv")
     return redundancy
+
 
 def compute_binary_redundancy(strand_redundancy_df, requirements_name):
     binary_redundancy_arr = np.zeros(strand_requirements.MAX_n_binary + 1)
@@ -73,6 +76,7 @@ def compute_binary_redundancy(strand_redundancy_df, requirements_name):
     binary_redundancy_arr.columns = [method + " Redundancy in bits"]
     binary_redundancy_arr.to_csv("EncodingAlgorithms/Results/" + method + "- Binary Redundancy.csv")
     return binary_redundancy_arr
+
 
 if __name__ == "__main__":
     log2_count_array = None

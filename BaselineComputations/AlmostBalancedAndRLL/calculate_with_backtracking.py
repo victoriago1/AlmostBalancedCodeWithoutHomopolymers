@@ -5,8 +5,9 @@ sys.path.append('BaselineComputations/')
 import strand_requirements
 
 """
-Calculates by backtracking the number of strands that hold the no-homopolymers constraint
+Calculates by backtracking the number of strands that hold the no-homopolymer runs constraint
 and the GC/AT 5% almost balanced constraint.
+Used to validate results of the N4(m, w, n) formula implementation for small lengths.
 """
 
 SIGMA = ['a','t','c','g']
@@ -74,4 +75,3 @@ if __name__ == "__main__":
     m = 3
     for n in range(2, 13):
         print('Number of strands for n={} and m={}: {}'.format(n, m, calc_strands(n=n, m=m, verbose=False)))
-    
