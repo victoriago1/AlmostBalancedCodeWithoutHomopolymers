@@ -10,6 +10,8 @@ import strand_requirements
 Calculates the number of possible strands for the constraint of no homopolymer runs of length > 3,
 without the constraint of balance or almost balance.
 This is done by the recursive function: F(n) = 3*(F(n-1) + F(n-2) + F(n-3)), where F(n) = 4^n for n=1,2,3.
+This file doesn't use the "m" weight variable from BaselineComputations\strand_requirements.py, because
+the number of strands is calculated by a custom recursice function.
 """
 
 def calc_strands_count():

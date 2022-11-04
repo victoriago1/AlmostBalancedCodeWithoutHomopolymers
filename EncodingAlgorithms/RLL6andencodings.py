@@ -16,9 +16,10 @@ def min_encoded_length_by_method(x1, x2, x3, x4, x5):
     methods = {'A' : (2*(x1+x2+x3) + 3*(x4+x5)),
                'B' : (x1 + 3*(x2+x3) + 4*(x4+x5)),
                'C' : (x1 + 2*x2 + 6*(x3+x4+x5) + 1)}
-    
+
+    # Note that when two methods have the same redundancy, the first one will be chosen.
+    # This affects the choosing frequency of each method.
     return min(methods, key=methods.get), (min(methods.values()) - (x1+2*x2+3*x3+4*x4+5*x5))
-    # TODO return vector of mins
 
 
 def compute_redundancy():

@@ -17,6 +17,8 @@ A script for running all optimal bounds calculations and saving them in seperate
 """
 
 def compute_log2_count(strand_count_array, method):
+    # the input is already in log2 representation, the name of the function follows convention with other files.
+
     log2_count = strand_count_array
     log2_count = pd.DataFrame(log2_count)
     log2_count.index.name = "Final Quaternary Strand Length"
