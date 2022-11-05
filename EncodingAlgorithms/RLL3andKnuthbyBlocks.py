@@ -9,14 +9,13 @@ import strand_requirements
 import common
 
 """
-Calculates the number of possible strands for the second proposed solution algorithm,
-with 3-RLL & Knuth by blocks (our leading idea).
+Calculations for the second proposed solution algorithm, with 3-RLL & Knuth by blocks (our leading idea).
 """
 
 def calc_encoding_redundancy():
     """
     Returns an array, for every n (length of quaternary strand) the value is the length of the strand that satisfies the
-    constraint after encoding. """
+    constraint after encoding, and the total encoding redundancy for that length. """
     start = 1
     arr = np.zeros((strand_requirements.MAX_n_quaternary + 1, 2))
 

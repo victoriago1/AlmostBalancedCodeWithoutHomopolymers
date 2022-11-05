@@ -8,8 +8,9 @@ import strand_requirements
 from PowerSeries import PowerSeries
 
 """
-This file computes the function N4(m, w, n) defined in the article and saves the
-results under the directory '../Results'.
+This file computes the function N4(m, w, n) defined in the article, based on parameters from file strand_requirements.
+The results are the number of quaternary strands that hold the constraints and the log2 of the number of strands,
+and they are saved under the directory '../Results'.
 The script is meant to be run from the repository's root folder.
 """
 

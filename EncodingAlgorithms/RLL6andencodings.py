@@ -6,13 +6,13 @@ sys.path.append('BaselineComputations/')
 import strand_requirements
 
 """
-Calculates the redundancy of the third proposed solution algorithm,
-with 6-RLL & replacemnt codes.
+Calculations for the third proposed solution algorithm, with 6-RLL & methods A, B, C.
 """
 
 def min_encoded_length_by_method(x1, x2, x3, x4, x5):
+    """ Calculates min of length of letters replacing original zero runs and subtracts the original zeros length.
+        This equals to the redundancy for the given zero runs frequencies in a strand. """
 
-    """ calculates min length of letters replacing original zero runs and subtracts the original zeros length """
     methods = {'A' : (2*(x1+x2+x3) + 3*(x4+x5)),
                'B' : (x1 + 3*(x2+x3) + 4*(x4+x5)),
                'C' : (x1 + 2*x2 + 6*(x3+x4+x5) + 1)}
@@ -23,6 +23,10 @@ def min_encoded_length_by_method(x1, x2, x3, x4, x5):
 
 
 def compute_redundancy():
+    """
+    Returns an array, for every n (length of quaternary strand) the value is the worst-case redundancy for that length
+    with the algorithm, among all three encoding methods. """
+
     methods = {'A' : 0,
                'B' : 0,
                'C' : 0}
@@ -60,7 +64,7 @@ def compute_redundancy():
     df.to_csv("EncodingAlgorithms/Results/max_quaternary_redundancy_for_encoding_versions_idea.csv")
 
     df = pd.DataFrame.from_dict(methods, orient='index', columns=['counter per method'])
-    df.to_csv("EncodingAlgorithms/Results/method_counter_for_encoding_versions_idea.csv")
+    df.to_csv("EncodingAlgorithms/Results/method_counter_for_encoding_versions_idea.csv")  # note the comment above
 
     return results_per_n
 

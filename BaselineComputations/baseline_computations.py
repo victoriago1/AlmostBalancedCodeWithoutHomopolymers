@@ -17,7 +17,8 @@ A script for running all optimal bounds calculations and saving them in seperate
 """
 
 def compute_log2_count(strand_count_array, method):
-    # the input is already in log2 representation, the name of the function follows convention with other files.
+    # the input is already in log2 representation, the name of the function follows convention with
+    # file EncodingAlgorithms\encoding_computations.py
 
     log2_count = strand_count_array
     log2_count = pd.DataFrame(log2_count)
@@ -109,7 +110,6 @@ if __name__ == "__main__":
             quaternary_redundancy_array = np.append(quaternary_redundancy_array, temp_quaternary_redundancy_array,
                                                     axis=1)
             binary_redundancy_array = np.append(binary_redundancy_array, temp_binary_redundancy_array, axis=1)
-
 
     log2_count_array = pd.DataFrame(log2_count_array, columns=requirements)
     log2_count_array.index.name = "Final Quaternary Strand Length"

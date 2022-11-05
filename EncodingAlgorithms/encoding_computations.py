@@ -13,6 +13,9 @@ import RLL3andKnuthbyBlocks
 
 
 def compute_log2_count(strand_redundancy_df, method):
+    """ Computes for every length of strands that hold both constraints,
+        the log2 of the possible quaternary strands that can be representes by that length.
+        (approximately equals to: the maximal original binary data length that it can represent) """
     start = 1
     log2_count = np.zeros(strand_requirements.MAX_n_quaternary + start + 1)
 
@@ -41,7 +44,6 @@ def compute_quaternary_redundancy(temp_strand_redundancy_array, method):
     
     print("Calculating quaternary redundancy for strands up to {} bits for {}".format(strand_requirements.MAX_n_binary,
                                                                                       method))
-
     
     for n in tqdm(range(start, strand_requirements.MAX_n_quaternary + start)):
         redundancy[n] = temp_strand_redundancy_array[n, common.COL_QUATERNARY_REDUNDANCY]

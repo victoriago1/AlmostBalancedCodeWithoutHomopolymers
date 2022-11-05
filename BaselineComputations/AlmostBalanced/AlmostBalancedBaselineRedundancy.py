@@ -8,14 +8,10 @@ sys.path.append('BaselineComputations/')
 import strand_requirements
 
 """
-Calculates the number of bits for minimum and optimal redundancy, in case of almost balanced code,
-without the constraint of GC/AT content.
-This is done by
-(1) counting the number of the 4-ary strands of length n that hold this condition
-(2) calculating the number of binary bits that can express the same number of strands
-(3) returning the difference between 2n (the binary bits that are equal to n 4-ary strands) and the result of (2)
-In practice we used equations simplification with log rules.
-In the created CSV, the columns are the value of n and its redundancy.
+Calculates the log2 of the number of almost balanced quaternary strands for every strand length n, based on
+parameters from file strand_requirements.
+This is done by summing combinatorically the number of strands.
+In the created CSV, the columns are the value of n and its Log2 Count.
 """
 
 def calc_strands_count():
@@ -35,6 +31,7 @@ def calc_strands_count():
             sum += comb(n, i)
 
         # sum * 2^n = number of possible strands of length n
+        # by log rules: log2(sum * 2^n) = log2(sum) + log2(2^n) = log2(sum) + n
         arr[n] = log2(sum) + n
     return arr
 

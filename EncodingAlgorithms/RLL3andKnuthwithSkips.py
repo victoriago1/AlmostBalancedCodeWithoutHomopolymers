@@ -14,11 +14,13 @@ COL_INDEX_SIZE = 0
 COL_DELTA = 1
 
 """
-Calculates the number of possible strands for the first proposed solution algorithm,
-with 3-RLL & Knuth with skips.
+Calculations for the first proposed solution algorithm, with 3-RLL & Knuth with skips.
 """
  
 def compute_index_size_and_delta (max_n):
+    """
+    Calculates for every encoded strand length the optimal interval size (delta) and index encoding size.
+    """
     T2_log_count_array = RLL3BaselineRedundancy.calc_strands_count()
     imbalance = 0.01*strand_requirements.IMBALANCE_PERCENTAGE
     arr = np.empty((max_n + 1, 2))
@@ -50,7 +52,7 @@ def compute_index_size_and_delta (max_n):
 def calc_encoding_redundancy():
     """
     Returns an array, for every n (length of quaternary strand) the value is the length of the strand that satisfies the
-    constraint after encoding. """
+    constraint after encoding, and the total encoding redundancy for that length. """
 
     max_length_for_delta_calc = ceil(1.25*strand_requirements.MAX_n_quaternary + 1)
     delta_and_index = compute_index_size_and_delta(max_n=max_length_for_delta_calc)
@@ -68,7 +70,7 @@ def calc_encoding_redundancy():
         Knuth_redundancy = index_size + 2
         arr[n, common.COL_QUATERNARY_REDUNDANCY] = RLL_redundancy + Knuth_redundancy
         arr[n, common.COL_FINAL_LENGTH] = n + arr[n, common.COL_QUATERNARY_REDUNDANCY]
-        if  arr[n, common.COL_FINAL_LENGTH] > max_length_for_delta_calc:
+        if arr[n, common.COL_FINAL_LENGTH] > max_length_for_delta_calc:
             break
 
     return arr

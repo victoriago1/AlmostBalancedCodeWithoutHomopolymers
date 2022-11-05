@@ -5,8 +5,7 @@ This folder contains everything needed to compute the number of strands that fol
 
 Most of the files are relevant to the computation of the function *N4(m, w, n)* as it is defined in the article:
 "Properties and Constructions of Constrained Codes for DNA-Based Data Storage"[^1].
-The function *N4(m, w, n)*, defined in this article, calculates the number of strand of length n and weight w using recursive 
-functions and power series.
+The function *N4(m, w, n)* calculates the number of strands of length n and weight w using recursive functions and power series.
 Please read the article for more information.
 
 This folder contains or uses the following files:
@@ -18,7 +17,7 @@ This folder contains or uses the following files:
 
 - `calculate_with_backtracking.py`:
     This file computes the number of strands that follow the requirements by brute force.
-    This is in order to verify that the computations are correct.
+    This is in order to verify that the implementation of *N4(m, w, n)* is correct.
 
 - `PowerSeries.py`:
     This file implements a custom class "PowerSeries", including initializing the basic power series that are used in the article.

@@ -5,8 +5,8 @@ sys.path.append('BaselineComputations/')
 import strand_requirements
 
 """
-Calculates by backtracking the number of strands that hold the no-homopolymer runs constraint
-and the GC/AT 5% almost balanced constraint.
+Calculates by backtracking the number of quaternary strands that hold the no-homopolymer runs constraint
+and the almost balanced constraint.
 Used to validate results of the N4(m, w, n) formula implementation for small lengths.
 """
 
