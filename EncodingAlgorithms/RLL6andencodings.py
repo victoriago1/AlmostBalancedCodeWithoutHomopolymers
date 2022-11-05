@@ -1,12 +1,16 @@
+from math import ceil
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
 import sys
 sys.path.append('BaselineComputations/')
+sys.path.append('EncodingAlgorithms/')
 import strand_requirements
+import common
 
 """
 Calculations for the third proposed solution algorithm, with 6-RLL & methods A, B, C.
+Currently, Computed only for values above 80.
 """
 
 def min_encoded_length_by_method(x1, x2, x3, x4, x5):
@@ -22,7 +26,7 @@ def min_encoded_length_by_method(x1, x2, x3, x4, x5):
     return min(methods, key=methods.get), (min(methods.values()) - (x1+2*x2+3*x3+4*x4+5*x5))
 
 
-def compute_redundancy():
+def calc_encoding_redundancy():
     """
     Returns an array, for every n (length of quaternary strand) the value is the worst-case redundancy for that length
     with the algorithm, among all three encoding methods. """
@@ -31,9 +35,10 @@ def compute_redundancy():
                'B' : 0,
                'C' : 0}
 
-    start = 80
     max_n = strand_requirements.MAX_n_quaternary
-    results_per_n = np.empty((max_n+1) - start)
+    delta_and_index = common.compute_index_size_and_delta(max_n=(max_n+ceil(0.5*max_n)))
+    start = 80
+    results_per_n = np.empty(((max_n+1), 2))
 
     for n in tqdm(range(start, max_n+1)):
         max_redundancy_per_length = 0
@@ -58,16 +63,21 @@ def compute_redundancy():
                         if (min_redundancy_per_strand > max_redundancy_per_length):
                             max_redundancy_per_length = min_redundancy_per_strand
     
-        results_per_n[n-start] = max_redundancy_per_length
+        RLL_redundancy = ceil(max_redundancy_per_length)
+        n_length_after_RLL = n + RLL_redundancy
+        index_size = delta_and_index[n_length_after_RLL, common.COL_INDEX_SIZE]
+        Knuth_redundancy = index_size + 2
+        results_per_n[n, common.COL_QUATERNARY_REDUNDANCY] = RLL_redundancy + Knuth_redundancy
+        results_per_n[n, common.COL_FINAL_LENGTH] = n + results_per_n[n, common.COL_QUATERNARY_REDUNDANCY]
 
-    df = pd.DataFrame(results_per_n, columns=['max redundancy in quaternary letters'])
-    df.to_csv("EncodingAlgorithms/Results/max_quaternary_redundancy_for_encoding_versions_idea.csv")
-
-    df = pd.DataFrame.from_dict(methods, orient='index', columns=['counter per method'])
-    df.to_csv("EncodingAlgorithms/Results/method_counter_for_encoding_versions_idea.csv")  # note the comment above
+    df = pd.DataFrame.from_dict(methods, orient='index', columns=['counter per method']) # note the comment above
+    df.to_csv("EncodingAlgorithms/Results/6-RLL with encodings and Knuth - counter for zero runs encoding methods.csv") 
 
     return results_per_n
 
 
 if __name__ == "__main__":
-    compute_redundancy()
+    arr = calc_encoding_redundancy()
+    df = pd.DataFrame(arr, columns=['Quaternary Redundancy', 'Final Quaternary String Length'])
+    df.index.name = "Original Quaternary String Length"
+    df.to_csv("EncodingAlgorithms/Results/6-RLL with encodings and Knuth encoding.csv")

@@ -10,6 +10,7 @@ import common
 import RLL3andKnuth
 import RLL3andKnuthwithSkips
 import RLL3andKnuthbyBlocks
+import RLL6andencodings
 
 """
 A script for running the calculations of baseline and proposed solutions,
@@ -45,10 +46,10 @@ def compute_log2_count(strand_redundancy_df, method):
 def compute_quaternary_redundancy(temp_strand_redundancy_array, method):
     start = 1
     redundancy = np.zeros(strand_requirements.MAX_n_quaternary + start + 1)
-    
+
     print("Calculating quaternary redundancy for strands up to {} bits for {}".format(strand_requirements.MAX_n_binary,
                                                                                       method))
-    
+
     for n in tqdm(range(start, strand_requirements.MAX_n_quaternary + start)):
         redundancy[n] = temp_strand_redundancy_array[n, common.COL_QUATERNARY_REDUNDANCY]
 
@@ -71,7 +72,7 @@ def compute_binary_redundancy(strand_redundancy_df, requirements_name):
         # calculate the first length that may represent a binary string of length n:
         optimal_n_quaternary = strand_redundancy_df.loc[strand_redundancy_df['Original_length'] >= ceil(n/2.0),
                                                         'Final_length'].min()
-        
+
         # when max_binary_length >= n, the length is sufficient to represent 2^n possible vectors.
         binary_redundancy = int(2*optimal_n_quaternary-n)
 
@@ -88,8 +89,11 @@ if __name__ == "__main__":
     log2_count_array = None
     quaternary_redundancy_array = None
     binary_redundancy_array = None
-    encoding_method = ["3-RLL and Knuth", "3-RLL and Knuth with Skips", "3-RLL and Knuth by blocks"]
-    
+    encoding_method = ["3-RLL and Knuth",
+                       "3-RLL and Knuth with Skips",
+                       "3-RLL and Knuth by blocks",
+                       "6-RLL with encodings and Knuth"]
+
     for method in encoding_method:
         if (method == "3-RLL and Knuth"):
             temp_strand_redundancy_array = RLL3andKnuth.calc_encoding_redundancy()
@@ -97,9 +101,11 @@ if __name__ == "__main__":
             temp_strand_redundancy_array = RLL3andKnuthwithSkips.calc_encoding_redundancy()
         elif (method == "3-RLL and Knuth by blocks"):
             temp_strand_redundancy_array = RLL3andKnuthbyBlocks.calc_encoding_redundancy()
+        elif (method == "6-RLL with encodings and Knuth"):
+            temp_strand_redundancy_array = RLL6andencodings.calc_encoding_redundancy()
         else:
             raise
-        
+
         temp_strand_redundancy_df = pd.DataFrame(temp_strand_redundancy_array)
         temp_strand_redundancy_df.columns = ["Quaternary_redundancy", "Final_length"]
         temp_strand_redundancy_df = temp_strand_redundancy_df.rename_axis('Original_length').reset_index()
