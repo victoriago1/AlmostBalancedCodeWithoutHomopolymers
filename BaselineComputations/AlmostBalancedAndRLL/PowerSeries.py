@@ -13,7 +13,7 @@ The class includes multiplication and addition of different power series.
 
 class PowerSeries:
     def __init__(self, rows=-1, cols=-1):
-        
+
         """ Each power series is represented by a matrix (or vector) in which cell(i,j)
             represents the coeff of (x^i),(y^j) """
 
@@ -64,7 +64,7 @@ class PowerSeries:
                 for other_i in range(min(ps_other.shape[0], new_rows-self_i)):
                     for other_j in range(min(ps_other.shape[1], new_cols-self_j)):
                         result.data[self_i+other_i, self_j+other_j] += self_coeff*ps_other[other_i, other_j]
-    
+
         return result
 
 
@@ -86,7 +86,7 @@ class PowerSeries:
 
         ps_self = np.diag(self.data) if self.is_compact else self.data
         ps_other = np.diag(other.data) if other.is_compact else other.data
-        
+
         new_rows = max(ps_self.shape[0], ps_other.shape[0])
         new_cols = max(ps_self.shape[1], ps_other.shape[1])
         result = PowerSeries(new_rows, new_cols)

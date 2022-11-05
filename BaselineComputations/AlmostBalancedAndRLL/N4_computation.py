@@ -22,11 +22,11 @@ def _create_D1():
     for (i,j), val in np.ndenumerate(D1):
         if (i==j):
             D1[i,j] = PowerSeries(1, 1)
-        
+
         elif (i<=1):
             D1[i,j] = PowerSeries()
             D1[i,j].init_T()
-        
+
         else:
             D1[i,j] = PowerSeries()
             D1[i,j].init_T1()
@@ -58,7 +58,7 @@ def calc_strands_count():
 
         for (i,j), val in np.ndenumerate(Dk):
             N4 += val
-    
+
     num_of_strands = np.zeros((strand_requirements.MAX_n_quaternary + 1, 2), dtype=np.float128)
     COL_NUM_OF_STRANDS = 0
     COL_MAX_BINARY_LENGTH = 1
@@ -83,5 +83,4 @@ def calc_strands_count():
 
 
 if __name__ == "__main__":
-    
     calc_strands_count()

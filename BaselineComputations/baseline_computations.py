@@ -40,7 +40,7 @@ def compute_quaternary_redundancy(strand_count_array, method):
         while max_origin_quaternary < n:
             optimal_final_n_quaternary += 1
             max_origin_quaternary = floor(strand_count_array[optimal_final_n_quaternary]/2)
-        
+
         redundancy[n] = optimal_final_n_quaternary - n
 
         if optimal_final_n_quaternary >= strand_requirements.MAX_n_quaternary:
@@ -59,7 +59,6 @@ def compute_binary_redundancy(max_n_binary_per_n_quaternary, requirements_name):
     start = 1
     optimal_n_quaternary = ceil(start/2.0)
     max_binary_length = max_n_binary_per_n_quaternary[optimal_n_quaternary]
-    
 
     print("Calculating redundancy for strands up to {} bits for {}".format(strand_requirements.MAX_n_binary,
                                                                            requirements_name))
@@ -68,7 +67,7 @@ def compute_binary_redundancy(max_n_binary_per_n_quaternary, requirements_name):
         while max_binary_length < n:
             optimal_n_quaternary += 1
             max_binary_length = max_n_binary_per_n_quaternary[optimal_n_quaternary]
-        
+
         # when max_binary_length >= n, the length is sufficient to represent 2^n possible vectors.
         binary_redundancy = int(2*optimal_n_quaternary - n)
 
@@ -86,7 +85,7 @@ if __name__ == "__main__":
     quaternary_redundancy_array = None
     binary_redundancy_array = None
     requirements = ["Almost Balanced", "3-RLL", "Almost Balanced And RLL"]
-    
+
     for requirement in requirements:
         if (requirement == "Almost Balanced"):
             temp_strand_count_array = AlmostBalancedBaselineRedundancy.calc_strands_count()
@@ -96,7 +95,7 @@ if __name__ == "__main__":
             temp_strand_count_array = N4_computation.calc_strands_count()
         else:
             raise
-        
+
         temp_log2_count_array = compute_log2_count(temp_strand_count_array, requirement)
         temp_quaternary_redundancy_array = compute_quaternary_redundancy(temp_strand_count_array, requirement)
         temp_binary_redundancy_array = compute_binary_redundancy(temp_strand_count_array, requirement)

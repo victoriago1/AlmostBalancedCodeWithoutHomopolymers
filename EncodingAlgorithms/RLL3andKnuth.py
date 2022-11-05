@@ -25,7 +25,7 @@ def calc_encoding_redundancy():
     arr[0, common.COL_QUATERNARY_REDUNDANCY] = 0
     arr[0, common.COL_FINAL_LENGTH] = 0
     index_size = 0
-    
+
     for n in tqdm(range(start, strand_requirements.MAX_n_quaternary+start)):
         n_float = 1.0*n
         RLL_redundancy = 2*ceil(n_float/16) - 1
@@ -33,7 +33,7 @@ def calc_encoding_redundancy():
 
         while T2_log_count_array[index_size] < log2(n_length_after_RLL):
             index_size += 1
-       
+
         Knuth_redundancy = index_size + 2
         arr[n, common.COL_QUATERNARY_REDUNDANCY] = RLL_redundancy + Knuth_redundancy
         arr[n, common.COL_FINAL_LENGTH] = n + arr[n, common.COL_QUATERNARY_REDUNDANCY]

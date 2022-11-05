@@ -19,7 +19,7 @@ def calc_longest_homopolymer(str) -> int:
 
     if not str:
         return 0
-    
+
     longest = 1
     prev = None
     current_len = 0
@@ -45,9 +45,9 @@ def calc_strands(n, m, verbose=False) -> int:
 
     """ Returns the number of strands of length n and maximum homopolymer length of m.
         If verbose==True, all of the strands that hold the conditions will be printed as well. """
-    
+
     w_min, w_max = strand_requirements.min_max_weight(n)
-    
+
     return _calc_strands_wrapper(n=n, m=m, w_min=w_min, w_max=w_max, str='', verbose=verbose)
 
 
@@ -62,7 +62,7 @@ def _calc_strands_wrapper(n, m, w_min, w_max, str, verbose) -> int:
                 print(str)
             return 1
         return 0
-    
+
     counter = 0
     for char in SIGMA:
         counter += _calc_strands_wrapper(n=n, m=m, w_min=w_min, w_max=w_max, str=str + char, verbose=verbose)

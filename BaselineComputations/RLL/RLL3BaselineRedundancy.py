@@ -18,7 +18,7 @@ def calc_strands_count():
     """
     Returns an array, for every n (length of quaternary strand) the value is the number of possible strands of
     that length that satisfy the constraint. """
-    
+
     start = 1
     arr = np.zeros(strand_requirements.MAX_n_quaternary + 1)
     arr[0] = 0

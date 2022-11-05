@@ -21,7 +21,7 @@ def calc_encoding_redundancy():
 
     arr[0, common.COL_QUATERNARY_REDUNDANCY] = 0
     arr[0, common.COL_FINAL_LENGTH] = 0
-    
+
     for n in tqdm(range(start, strand_requirements.MAX_n_quaternary+start)):
         n_float = 1.0*n
         RLL_redundancy = ceil(n_float/16)
