@@ -42,7 +42,8 @@ Every file is documented and changes could be easily applied.
 
 
 ## A Note Regarding the Results
-The CSV files in the repository might contain inaccurate values for the edge values, below 100 or above 500, for example where the array was initialized to zeros and the edge values where not correctly calculated and update because they are unnecessary.
+The CSV files in the repository might contain inaccurate values for the edge values, below 100 or above 500 (quaternary letters), for several reasons.
+For example where the array was initialized to zeros and the edge values where not correctly calculated and update because they are unnecessary.
 
 The produced graphs of the results do not consider those values, so they hold only valid calculations.
 
