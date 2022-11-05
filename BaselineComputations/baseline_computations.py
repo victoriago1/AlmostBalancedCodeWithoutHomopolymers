@@ -13,7 +13,7 @@ import N4_computation
 import RLL3BaselineRedundancy
 
 """
-A script for running all optimal bounds calculations and saving them in seperate CSV files.
+A script for running all optimal bounds calculations and saving them in separate and common CSV files.
 """
 
 def compute_log2_count(strand_count_array, method):

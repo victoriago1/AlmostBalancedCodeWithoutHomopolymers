@@ -11,6 +11,10 @@ import RLL3andKnuth
 import RLL3andKnuthwithSkips
 import RLL3andKnuthbyBlocks
 
+"""
+A script for running the calculations of baseline and proposed solutions,
+and saving them in separate and common CSV files.
+"""
 
 def compute_log2_count(strand_redundancy_df, method):
     """ Computes for every length of strands that hold both constraints,
